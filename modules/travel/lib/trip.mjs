@@ -207,6 +207,7 @@ export default {
     // ---------- 停留/活动计时：治「让她刷 10 分钟，2 分钟就回来了」 ----------
     // 关键：开始时刻和时长落成文件，进度按时钟算，不靠她自己记；没到点就没资格说「做完了」。
     const stayFile = () => join(api.dataDir(), 'stay.json')
+    const MIN_SHOWER = 15   // 洗澡/洗头的最短计时；5 分钟洗完头和澡不算
     const readStay = () => {
       try { return JSON.parse(readFileSync(stayFile(), 'utf8')) } catch { return null }
     }
@@ -224,6 +225,10 @@ export default {
       const m = Math.round(Number(minutes) || 0)
       if (!place || !m || m <= 0) return { ok: false, message: '要说清三件事：在哪、做什么、多久（分钟）。' }
       if (m > 12 * 60) return { ok: false, message: '一次别记超过 12 小时，太长了记不准；真要过夜就分开记。' }
+      const isShower = /洗澡|洗头|洗发|沐浴|冲澡|冲凉/.test(String(what || ''))
+      if (isShower && m < MIN_SHOWER) {
+        return { ok: false, message: `洗澡/洗头至少要 ${MIN_SHOWER} 分钟；${m} 分钟太短，不能算洗完。要洗就按 ${MIN_SHOWER} 分钟以上记，只冲一下不洗头就明确说「冲凉」。` }
+      }
       // 同一时间只做一件事：手上那件没到点就别再开第二件
       const cur = stayOf()
       if (cur && cur.active) {
@@ -538,6 +543,7 @@ export default {
       + '结束行程不等于回家：你留在最后那个地方，想回家要真的排返程。'
       + '「现在几点」「过了多久」「还有多久」一律以 trip_now 返回的时刻为准，不许自己算、不许按对话开头的时间推。'
       + '带时长的事（刷手机 10 分钟、洗澡 20 分钟）要用活动计时落地，先说去做，再记开始时刻和时长；没到点只能说「还剩 X 分钟」，不许说「做完了／回来了」。'
+      + '洗澡/洗头至少 15 分钟：start 的 minutes 不得低于 15；没到 15 分钟不许说「洗完了」。只冲一下不洗头，就说「冲凉」，不要报成洗澡。'
       + '同一时间只做一件事：手上那件事没到点也没被叫停，就别再开第二件；要换事必须先把前一件收掉再开新的。')
 
     api.route('/state', () => ({ ok: true, trip: current() }))
