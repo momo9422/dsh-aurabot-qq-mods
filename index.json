@@ -2769,7 +2769,7 @@
     {
       "id": "qq-call",
       "name": "QQ语音通话",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "description": "接入 QQ 语音通话：来电自动接听、实时识别对方说话、模型想好后用合成语音回过去，一整轮对话自己跑。",
       "category": "social",
       "tags": [
@@ -2794,13 +2794,13 @@
         "plugin-internals"
       ],
       "replacesBuiltin": false,
-      "tag": "qq-call-v0.3.1",
-      "file": "qq-call-v0.3.1.zip",
-      "path": "qq-call-v0.3.1/qq-call-v0.3.1.zip",
-      "size": 31892,
-      "sha256": "975acc1ae6b0c6278b59b877cb0415238dc854af7ca8bcd084c4abd6b0b2cece",
-      "commit": "fc0bf65d1502bdede2a1e476d3610e5e27569a7b",
-      "publishedAt": "2026-11-27T08:55:54.534Z"
+      "tag": "qq-call-v0.3.2",
+      "file": "qq-call-v0.3.2.zip",
+      "path": "qq-call-v0.3.2/qq-call-v0.3.2.zip",
+      "size": 38956,
+      "sha256": "0003befda907e8f72fe0c7e30164a175c30b5c1be640799597f0d9c43c50e3d6",
+      "commit": "768ab683f59881e8168aecf21b537e77b65861a8",
+      "publishedAt": "2026-11-27T10:13:16.017Z"
     },
     {
       "id": "qwen-tts",
@@ -4313,5 +4313,5 @@
       "reason": "作者主动撤回。"
     }
   ],
-  "generatedAt": "2026-11-27T08:55:54.534Z"
+  "generatedAt": "2026-11-27T10:13:16.017Z"
 }
